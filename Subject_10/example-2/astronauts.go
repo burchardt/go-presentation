@@ -1,0 +1,84 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"io"
+	"log"
+	"net/http"
+	"net/url"
+	"time"
+)
+
+type GetWebRequest interface {
+	FetchBytes(url string) ([]byte, error)
+}
+
+type ProxyWebRequest struct {
+	httpProxy string
+}
+
+func (p ProxyWebRequest) FetchBytes(addr string) ([]byte, error) {
+	proxyURL, err := url.Parse(p.httpProxy)
+	if err != nil {
+		return []byte{}, err
+	}
+
+	transport := http.Transport{Proxy: http.ProxyURL(proxyURL)}
+	httpClient := http.Client{
+		Timeout:   time.Second * 2,
+		Transport: &transport,
+	}
+	req, err := http.NewRequest(http.MethodGet, addr, nil)
+	if err != nil {
+		return []byte{}, err
+	}
+	req.Header.Set("User-Agent", "spacecount-tutorial")
+
+	res, getErr := httpClient.Do(req)
+	if getErr != nil {
+		return []byte{}, err
+	}
+
+	body, readErr := io.ReadAll(res.Body)
+	if readErr != nil {
+		return []byte{}, err
+	}
+	return body, nil
+}
+
+type Member struct {
+	Name  string `json:"name"`
+	Cratf string `json:"craft"`
+}
+type Astronauts struct {
+	Number  int      `json:"number"`
+	Message string   `json:"message"`
+	Crew    []Member `json:"people"`
+}
+
+const proxy = "http://proxy.lbs.alcatel-lucent.com:8000"
+
+func getAstronauts(getWebRequest GetWebRequest) (*Astronauts, error) {
+	addr := "http://api.open-notify.org/astros.json"
+	bodyBytes, err := getWebRequest.FetchBytes(addr)
+	if err != nil {
+		return &Astronauts{}, err
+	}
+	astronauts := Astronauts{}
+	err = json.Unmarshal(bodyBytes, &astronauts)
+	if err != nil {
+		return &Astronauts{}, err
+	}
+	return &astronauts, nil
+}
+
+func main() {
+	liveClient := ProxyWebRequest{httpProxy: proxy}
+	astros, err := getAstronauts(liveClient)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("Astronauts: %v\n", astros.Crew)
+}

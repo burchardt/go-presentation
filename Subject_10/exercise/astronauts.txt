@@ -1,0 +1,3 @@
+// The FetchBytes is too long; it requires refactoring.
+// Modify this function by moving the part related to httpClient to a separate function
+// and add a test for this newly created function.
