@@ -5,4 +5,4 @@ go run hello-world.go
 go build hello-world.go
 
 # Compile the Go code and create a binary executable file for given OS
-env GOOS=linux GOARCH=amd64 go build -a -o hello hello-world.go
+env GOOS=linux GOARCH=amd64 go build -o hello hello-world.go
