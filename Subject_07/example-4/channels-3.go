@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func safeReceiver(msgChan chan string) {
+func nonBlockingReceiver(msgChan chan string) {
 	select {
 	case msg := <-msgChan:
 		fmt.Println("received message: ", msg)
@@ -11,7 +11,7 @@ func safeReceiver(msgChan chan string) {
 	}
 }
 
-func safeSender(msgChan chan string, message string) {
+func nonBlockingSender(msgChan chan string, message string) {
 	select {
 	case msgChan <- message:
 		fmt.Println("sent message: ", message)
@@ -23,6 +23,6 @@ func safeSender(msgChan chan string, message string) {
 func main() {
 	msgChan := make(chan string)
 
-	safeSender(msgChan, "hello")
-	safeReceiver(msgChan)
+	nonBlockingSender(msgChan, "hello")
+	nonBlockingReceiver(msgChan)
 }
