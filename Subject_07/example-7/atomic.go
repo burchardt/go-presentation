@@ -16,7 +16,7 @@ func Decrement(n *int32) {
 
 func main() {
 	var value int32
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < 10000; i++ {
 		go Increment(&value)
 		go Decrement(&value)
 	}
