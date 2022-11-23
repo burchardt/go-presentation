@@ -13,6 +13,9 @@ func main() {
 	var x, y = 10, 20
 	fmt.Println(x, y)
 
+	var big uint64 = 0
+	fmt.Println(big)
+	
 	s := "short"
 	fmt.Println(s)
 
