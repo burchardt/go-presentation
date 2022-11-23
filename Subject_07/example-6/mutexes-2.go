@@ -32,7 +32,7 @@ func (sc *safeCounter) GetValue() int {
 func main() {
 	sc := new(safeCounter)
 
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < 10000; i++ {
 		go sc.Increment()
 		go sc.Decrement()
 	}
