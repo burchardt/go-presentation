@@ -12,7 +12,7 @@ type DataEntry struct {
 }
 
 func TypeSwitch(x interface{}) {
-	switch T := x.(type) {
+	switch x.(type) {
 	case Secret:
 		fmt.Print("Secret type; ")
 		value := x.(Secret).secretValue
@@ -22,7 +22,7 @@ func TypeSwitch(x interface{}) {
 		value := x.(DataEntry).value
 		fmt.Println("value: ", value)
 	default:
-		fmt.Printf("Unsupported type: %T", T)
+		fmt.Printf("Unsupported type")
 	}
 }
 
