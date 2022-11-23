@@ -13,7 +13,7 @@ const (
 
 func numbers(wg *sync.WaitGroup, mux *sync.RWMutex) {
 	mux.Lock()
-	mux.Unlock()
+	defer mux.Unlock()
 	for i := 1; i <= 10; i++ {
 		time.Sleep(time.Duration(rand.Intn(maxSleepTimeout)) * time.Millisecond)
 		fmt.Printf("%d ", i)
@@ -24,7 +24,7 @@ func numbers(wg *sync.WaitGroup, mux *sync.RWMutex) {
 
 func characters(wg *sync.WaitGroup, mux *sync.RWMutex) {
 	mux.Lock()
-	mux.Unlock()
+	defer mux.Unlock()
 	for i := 'a'; i <= 'j'; i++ {
 		time.Sleep(time.Duration(rand.Intn(maxSleepTimeout)) * time.Millisecond)
 		fmt.Printf("%c ", i)
