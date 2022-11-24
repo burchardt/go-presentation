@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 )
 
 type Person struct {
@@ -13,11 +14,10 @@ type Person struct {
 }
 
 func main() {
-	person := Person{FirstName: "Janusz", LastName: "Kowalski", Phone: "1234567", Password: "admin1"}
+	person := Person{FirstName: "James", LastName: "Bond", Phone: "7007007", Password: "admin1"}
 
-	jsonData, err := json.Marshal(&person)
-	if err != nil {
-		fmt.Println(err)
+	if jsonData, err := json.Marshal(&person); err != nil {
+		log.Fatal(err)
 	} else {
 		fmt.Println(string(jsonData))
 	}
