@@ -15,7 +15,7 @@ func main() {
 	case 2:
 		fmt.Println("two")
 	default:
-		fmt.Println("Other number: %d", i)
+		fmt.Printf("Other number: %d\n", i)
 	}
 
 	switch time.Now().Weekday() {
