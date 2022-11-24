@@ -11,14 +11,14 @@ import (
 )
 
 type GetWebRequest interface {
-	FetchBytes(url string) ([]byte, error)
+	FetchBody(string) ([]byte, error)
 }
 
 type ProxyWebRequest struct {
 	httpProxy string
 }
 
-func (p ProxyWebRequest) FetchBytes(addr string) ([]byte, error) {
+func (p ProxyWebRequest) FetchBody(addr string) ([]byte, error) {
 	proxyURL, err := url.Parse(p.httpProxy)
 	if err != nil {
 		return []byte{}, err
@@ -26,7 +26,7 @@ func (p ProxyWebRequest) FetchBytes(addr string) ([]byte, error) {
 
 	transport := http.Transport{Proxy: http.ProxyURL(proxyURL)}
 	httpClient := http.Client{
-		Timeout:   time.Second * 2,
+		Timeout:   3 * time.Second,
 		Transport: &transport,
 	}
 	req, err := http.NewRequest(http.MethodGet, addr, nil)
@@ -61,7 +61,7 @@ const proxy = "http://proxy.lbs.alcatel-lucent.com:8000"
 
 func getAstronauts(getWebRequest GetWebRequest) (*Astronauts, error) {
 	addr := "http://api.open-notify.org/astros.json"
-	bodyBytes, err := getWebRequest.FetchBytes(addr)
+	bodyBytes, err := getWebRequest.FetchBody(addr)
 	if err != nil {
 		return &Astronauts{}, err
 	}
