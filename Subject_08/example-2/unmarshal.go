@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 )
 
 type Person struct {
@@ -14,12 +15,11 @@ type Person struct {
 
 func main() {
 	var person Person
-	jsonData := []byte(`{"first_name":"Janusz","last_name":"Kowalski","phone_number":"1234567"}`)
+	jsonData := []byte(`{"first_name":"James", "last_name":"Bond", "phone_number":"7007007"}`)
 
-	err := json.Unmarshal(jsonData, &person)
-	if err != nil {
-		fmt.Println(err)
+	if err := json.Unmarshal(jsonData, &person); err != nil {
+		log.Fatal(err)
 	} else {
-		fmt.Println(person)
+		fmt.Println(fmt.Sprintf("%#v", person))
 	}
 }
