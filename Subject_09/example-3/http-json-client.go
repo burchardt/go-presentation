@@ -6,8 +6,40 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"os"
+	"net/url"
+	"time"
 )
+
+func fetchData(endpoint string) ([]byte, error) {
+	const httpProxy = "http://proxy.lbs.alcatel-lucent.com:8000"
+
+	proxyURL, err := url.Parse(httpProxy)
+	if err != nil {
+		return []byte{}, err
+	}
+
+	transport := &http.Transport{Proxy: http.ProxyURL(proxyURL)}
+	httpClient := http.Client{
+		Transport: transport,
+		Timeout:   3 * time.Second,
+	}
+	req, err := http.NewRequest(http.MethodGet, endpoint, nil)
+	if err != nil {
+		return []byte{}, err
+	}
+
+	response, err := httpClient.Do(req)
+	if err != nil {
+		return []byte{}, err
+	}
+
+	defer response.Body.Close()
+	body, err := io.ReadAll(response.Body)
+	if err != nil {
+		return []byte{}, err
+	}
+	return body, nil
+}
 
 type Users struct {
 	Total int `json:"total"`
@@ -24,14 +56,7 @@ type Users struct {
 }
 
 func main() {
-	os.Setenv("HTTP_PROXY", "http://proxy.lbs.alcatel-lucent.com:8000")
-	response, err := http.Get("https://reqres.in/api/users?page=2")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer response.Body.Close()
-
-	body, err := io.ReadAll(response.Body)
+	body, err := fetchData("https://reqres.in/api/users?page=2")
 	if err != nil {
 		log.Fatal(err)
 	}
