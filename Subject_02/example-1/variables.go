@@ -10,8 +10,9 @@ func main() {
 	var a int
 	fmt.Println(a)
 
+	var z = 123
 	var x, y = 10, 20
-	fmt.Println(x, y)
+	fmt.Println(x, y, z)
 
 	var big uint64 = 0
 	fmt.Println(big)
