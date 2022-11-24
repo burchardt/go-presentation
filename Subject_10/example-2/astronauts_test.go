@@ -7,7 +7,7 @@ import (
 type TestWebRequest struct {
 }
 
-func (TestWebRequest) FetchBytes(url string) ([]byte, error) {
+func (TestWebRequest) FetchBody(url string) ([]byte, error) {
 	return []byte(`{"message": "OK", "number": 2, "people": [{"name": "Neil Armstrong", "crew": "NASA"}, {"name": "Pete Conrad", "crew": "NASA"}]}`), nil
 }
 
