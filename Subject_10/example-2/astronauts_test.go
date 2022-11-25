@@ -7,12 +7,12 @@ import (
 type TestWebRequest struct {
 }
 
-func (TestWebRequest) FetchBody(url string) ([]byte, error) {
+func (TestWebRequest) FetchBody(string) ([]byte, error) {
 	return []byte(`{"message": "OK", "number": 2, "people": [{"name": "Neil Armstrong", "crew": "NASA"}, {"name": "Pete Conrad", "crew": "NASA"}]}`), nil
 }
 
 func TestGetAstronauts(t *testing.T) {
-	astros, err := getAstronauts(TestWebRequest{})
+	astros, err := getAstronauts(TestWebRequest{}, "")
 	if err != nil {
 		t.Errorf("Error message, got: %s, want: %s.", err, "nil")
 	}
