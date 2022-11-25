@@ -59,8 +59,7 @@ type Astronauts struct {
 
 const proxy = "http://proxy.lbs.alcatel-lucent.com:8000"
 
-func getAstronauts(getWebRequest GetWebRequest) (*Astronauts, error) {
-	addr := "http://api.open-notify.org/astros.json"
+func getAstronauts(getWebRequest GetWebRequest, addr string) (*Astronauts, error) {
 	bodyBytes, err := getWebRequest.FetchBody(addr)
 	if err != nil {
 		return &Astronauts{}, err
@@ -74,8 +73,9 @@ func getAstronauts(getWebRequest GetWebRequest) (*Astronauts, error) {
 }
 
 func main() {
-	liveClient := ProxyWebRequest{httpProxy: proxy}
-	astros, err := getAstronauts(liveClient)
+	const addr = "http://api.open-notify.org/astros.json"
+	astros, err := getAstronauts(ProxyWebRequest{httpProxy: proxy}, addr)
+
 	if err != nil {
 		log.Fatal(err)
 	}
