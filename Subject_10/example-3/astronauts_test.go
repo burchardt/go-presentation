@@ -17,7 +17,7 @@ func (p NoProxyWebRequest) FetchBody(addr string) ([]byte, error) {
 func TestGetHttpClient(t *testing.T) {
 	httpClient, err := getHttpClient(proxy)
 	if err != nil {
-		t.Errorf("Error message, got: %s, want: %s.", err, "nil")
+		t.Errorf("Expected error to be nil, got: %s", err)
 	}
 
 	if httpClient.Timeout != 3*time.Second {
@@ -34,7 +34,7 @@ func TestGetAstronauts(t *testing.T) {
 
 	astros, err := getAstronauts(NoProxyWebRequest{}, server.URL)
 	if err != nil {
-		t.Errorf("Error message, got: %s, want: %s.", err, "nil")
+		t.Errorf("Expected error to be nil, got: %s", err)
 	}
 
 	if astros.Number != 2 {
