@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-type GetWebRequest interface {
+type WebRequest interface {
 	FetchBody(string) ([]byte, error)
 }
 
@@ -59,8 +59,8 @@ type Astronauts struct {
 
 const proxy = "http://proxy.lbs.alcatel-lucent.com:8000"
 
-func getAstronauts(getWebRequest GetWebRequest, addr string) (*Astronauts, error) {
-	bodyBytes, err := getWebRequest.FetchBody(addr)
+func getAstronauts(webRequest WebRequest, addr string) (*Astronauts, error) {
+	bodyBytes, err := webRequest.FetchBody(addr)
 	if err != nil {
 		return &Astronauts{}, err
 	}
