@@ -14,7 +14,7 @@ func (TestWebRequest) FetchBody(string) ([]byte, error) {
 func TestGetAstronauts(t *testing.T) {
 	astros, err := getAstronauts(TestWebRequest{}, "")
 	if err != nil {
-		t.Errorf("Error message, got: %s, want: %s.", err, "nil")
+		t.Errorf("Expected error to be nil, got: %s", err)
 	}
 
 	if astros.Number != 2 {
