@@ -75,7 +75,6 @@ func getAstronauts(webRequest WebRequest, addr string) (*Astronauts, error) {
 func main() {
 	const addr = "http://api.open-notify.org/astros.json"
 	astros, err := getAstronauts(ProxyWebRequest{httpProxy: proxy}, addr)
-
 	if err != nil {
 		log.Fatal(err)
 	}
