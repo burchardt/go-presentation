@@ -15,7 +15,7 @@ type WebRequest interface {
 }
 
 type ProxyWebRequest struct {
-	httpProxy string
+	HttpProxy string
 }
 
 func getHttpClient(httpProxy string) (*http.Client, error) {
@@ -52,7 +52,7 @@ func FetchBody(httpClient *http.Client, addr string) ([]byte, error) {
 }
 
 func (p ProxyWebRequest) FetchBody(addr string) ([]byte, error) {
-	httpClient, err := getHttpClient(p.httpProxy)
+	httpClient, err := getHttpClient(p.HttpProxy)
 	if err != nil {
 		return []byte{}, err
 	}
@@ -87,7 +87,7 @@ func GetAstronauts(webRequest WebRequest, addr string) (*Astronauts, error) {
 
 func main() {
 	const addr = "http://api.open-notify.org/astros.json"
-	astros, err := GetAstronauts(ProxyWebRequest{httpProxy: proxy}, addr)
+	astros, err := GetAstronauts(ProxyWebRequest{HttpProxy: proxy}, addr)
 	if err != nil {
 		log.Fatal(err)
 	}
