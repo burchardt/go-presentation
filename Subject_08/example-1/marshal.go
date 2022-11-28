@@ -14,7 +14,7 @@ type Person struct {
 }
 
 func main() {
-	person := Person{FirstName: "James", LastName: "Bond", Phone: "7007007", Password: "admin1"}
+	person := Person{FirstName: "Jan", LastName: "Kowalski", Phone: "1234567", Password: "admin1"}
 
 	if jsonData, err := json.Marshal(&person); err != nil {
 		log.Fatal(err)

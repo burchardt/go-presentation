@@ -15,7 +15,7 @@ type Person struct {
 
 func main() {
 	var person Person
-	jsonData := []byte(`{"first_name":"James", "last_name":"Bond", "phone_number":"7007007"}`)
+	jsonData := []byte(`{"first_name":"Jan", "last_name":"Kowalski", "phone_number":"1234567"}`)
 
 	if err := json.Unmarshal(jsonData, &person); err != nil {
 		log.Fatal(err)
