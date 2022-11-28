@@ -12,7 +12,7 @@ func (TestWebRequest) FetchBody(string) ([]byte, error) {
 }
 
 func TestGetAstronauts(t *testing.T) {
-	astros, err := getAstronauts(TestWebRequest{}, "")
+	astros, err := GetAstronauts(TestWebRequest{}, "")
 	if err != nil {
 		t.Errorf("Expected error to be nil, got: %s", err)
 	}

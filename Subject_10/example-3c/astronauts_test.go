@@ -32,7 +32,7 @@ func TestGetAstronauts(t *testing.T) {
 	}))
 	defer server.Close()
 
-	astros, err := getAstronauts(NoProxyWebRequest{}, server.URL)
+	astros, err := GetAstronauts(NoProxyWebRequest{}, server.URL)
 	if err != nil {
 		t.Errorf("Expected error to be nil, got: %s", err)
 	}

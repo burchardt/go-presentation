@@ -51,7 +51,7 @@ type Astronauts struct {
 	Crew    []Member `json:"people"`
 }
 
-func getAstronauts() (*Astronauts, error) {
+func GetAstronauts() (*Astronauts, error) {
 	const addr = "http://api.open-notify.org/astros.json"
 
 	bodyBytes, err := FetchBody(addr)
@@ -67,7 +67,7 @@ func getAstronauts() (*Astronauts, error) {
 }
 
 func main() {
-	astros, err := getAstronauts()
+	astros, err := GetAstronauts()
 	if err != nil {
 		log.Fatal(err)
 	}
