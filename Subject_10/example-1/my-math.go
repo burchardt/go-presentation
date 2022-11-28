@@ -22,7 +22,7 @@ func SumAndAverage(nums ...int) (int, float64) {
 
 func Divide(nominator, denominator int) (int, error) {
 	if denominator == 0 {
-		return 0, errors.New("Cannot Divide by zero")
+		return 0, errors.New("cannot divide by zero")
 	}
 	return nominator / denominator, nil
 }

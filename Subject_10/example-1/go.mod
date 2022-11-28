@@ -1,3 +1,3 @@
-module my_math
+module examples/my-math
 
 go 1.19
